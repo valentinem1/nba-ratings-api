@@ -1,7 +1,4 @@
 const Player = require('../models/playerModel');
-const { findByIdAndDelete } = require('../models/playerModel');
-const { restart } = require('nodemon');
-const { TooManyRequests } = require('http-errors');
 
 exports.getAllPlayers = async (req, res) => {
     try{
@@ -41,21 +38,17 @@ exports.getOnePlayer = async (req, res) => {
 };
 
 exports.createPlayer = async (req, res) => {
-
-    // console.log(req.body.createdAt = req.requestTime);
     try{
         const createdAt = req.requestTime;
         const body = {...req.body, createdAt};
-        // console.log(body);
-        let newPlayer = await Player.create(body);
-        // newPlayer.createdAt = req.requestTime;
+        const newPlayer = await Player.create(body);
 
         res.status(201).json({
             status: 'success',
             data: {
                 player: newPlayer
             }
-        })
+        });
     } catch(err){
         res.status(404).json({
             status: 'failed',
