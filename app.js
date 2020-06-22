@@ -19,6 +19,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// MIDDLEWARES
+// middleware to send see at what time the request as been made
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  console.log(req.requestTime);
+  next();
+});
+
 // ROUTES
 app.use('/', indexRouter);
 app.use('/players', playerRouter);

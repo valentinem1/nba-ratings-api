@@ -1,5 +1,5 @@
 var express = require('express');
-const { getAllPlayers, getOnePlayer, createPlayer } = require('../controllers/playerController');
+const { getAllPlayers, getOnePlayer, createPlayer, updatePlayer, deletePlayer } = require('../controllers/playerController');
 var router = express.Router();
 
 // GET/POST Players
@@ -10,5 +10,7 @@ router.route('/')
 // GET/PUT/DELETE Player
 router.route('/:id')
     .get(getOnePlayer)
+    .put(updatePlayer)
+    .delete(deletePlayer)
 
 module.exports = router;

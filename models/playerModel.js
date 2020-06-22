@@ -14,13 +14,15 @@ const playerSchema = new mongoose.Schema({
     },
     position: {
         type: String,
-        require: [true, 'A played must have a position'],
+        require: [true, 'A played must have a position.'],
         trim: true
     },
     team: {
         type: String,
         trim: true
-    }
+    },
+    image: String,
+    createdAt: String
 });
 
 const Player = mongoose.model('Player', playerSchema);
