@@ -1,8 +1,41 @@
 const Player = require('../models/playerModel');
 
+exports.pgPlayers = async (req, res) => {
+    try{
+        const players = await Player.find({ position: { $eq: "PG"}})
+        
+        res.status(200).json({
+            status: 'success',
+            data: {
+                players
+            }
+        })
+    } catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    };
+};
+
 exports.getAllPlayers = async (req, res) => {
     try{
-        const players = await Player.find();
+        // spread the query to create a new object that can be modify
+        const queryObj = { ...req.query };
+        // save different query types that we then iterate over to delete them from the query url.
+        const excludedFields = ['page', 'sort', 'limit', 'field'];
+        excludedFields.forEach(el => delete queryObj[el]);
+    
+        // 2) ADVANCED FILTERING
+        // stringify the query to be able to the replace method on it
+        let queryStr = JSON.stringify(queryObj);
+        queryStr = queryStr.replace(/\b(gte|gt|lte|lt|eq)\b/g, match => `$${match}`);
+        // Mongodb query
+        // parse it to be an object as mongodb query takes objects as arguments
+        const query = JSON.parse(queryStr)
+        console.log(query);
+        const players = await Player.find(query);
+
 
         res.status(200).json({
             status: 'success',
