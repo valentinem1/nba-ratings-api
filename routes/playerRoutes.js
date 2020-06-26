@@ -10,7 +10,7 @@ router.route('/')
 // GET/PUT/DELETE Player
 router.route('/:id')
     .get(getOnePlayer)
-    .put(updatePlayer)
+    .patch(updatePlayer)
     .delete(deletePlayer)
 
 

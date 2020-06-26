@@ -15,7 +15,9 @@
     "jade": "~1.11.0",
     "mongoose": "^5.9.19",
     "morgan": "~1.9.1",
+    "node-rest-client": "^3.1.0",
     "nodemon": "^2.0.4",
-    "pug": "^3.0.0"
+    "pug": "^3.0.0",
+    "request": "^2.88.2"
   }
 }

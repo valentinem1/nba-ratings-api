@@ -1,22 +1,28 @@
 const Player = require('../models/playerModel');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
 
-exports.pgPlayers = async (req, res) => {
-    try{
-        const players = await Player.find({ position: { $eq: "PG"}})
-        
-        res.status(200).json({
-            status: 'success',
-            data: {
-                players
-            }
-        })
-    } catch (err){
-        res.status(404).json({
-            status: 'fail',
-            message: err
-        });
-    };
+const request = require('request');
+
+const options = {
+    method: 'GET',
+    url: 'https://free-nba.p.rapidapi.com/players',
+    qs: {page: '0', per_page: '25'},
+    headers: {
+        'x-rapidapi-host': 'free-nba.p.rapidapi.com',
+        'x-rapidapi-key': process.env.API_KEY,
+        useQueryString: true
+    }
 };
+
+const playersData = request(options, async (error, response, body) => {
+    try{
+        const parsedResponse = await JSON.parse(body);
+        console.log(parsedResponse);
+    } catch(err){
+        console.log(err);
+    }
+})
 
 exports.getAllPlayers = async (req, res) => {
     try{
@@ -124,3 +130,23 @@ exports.deletePlayer = async (req, res) => {
         });
     };
 };
+
+
+
+// exports.pgPlayers = async (req, res) => {
+//     try{
+//         const players = await Player.find({ position: { $eq: "PG"}})
+
+//         res.status(200).json({
+//             status: 'success',
+//             data: {
+//                 players
+//             }
+//         })
+//     } catch (err){
+//         res.status(404).json({
+//             status: 'fail',
+//             message: err
+//         });
+//     };
+// };

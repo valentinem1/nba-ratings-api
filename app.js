@@ -1,12 +1,16 @@
 const createError = require('http-errors');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
+// ROUTES FROM ROUTES FOLDERS
 const indexRouter = require('./routes/index');
 const playerRouter = require('./routes/playerRoutes');
-const cors = require('cors');
 
 const app = express();
 
