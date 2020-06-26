@@ -18,7 +18,15 @@ const options = {
 const playersData = request(options, async (error, response, body) => {
     try{
         const parsedResponse = await JSON.parse(body);
-        console.log(parsedResponse);
+        parsedResponse.data.forEach(player => {
+            Player.create({
+                first_name: player.first_name,
+                last_name: player.last_name,
+                position: player.position,
+                team: '',
+                image: ''
+            });
+        })
     } catch(err){
         console.log(err);
     }
