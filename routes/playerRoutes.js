@@ -1,5 +1,5 @@
 var express = require('express');
-const { getAllPlayers, getOnePlayer, createPlayer, updatePlayer, deletePlayer } = require('../controllers/playerController');
+const { getAllPlayers, getOnePlayer, createPlayer, updatePlayer, deletePlayer, deleteAllplayers } = require('../controllers/playerController');
 var router = express.Router();
 
 // GET/POST Players
@@ -13,5 +13,8 @@ router.route('/:id')
     .patch(updatePlayer)
     .delete(deletePlayer)
 
+// DELETE all players from DB
+router.route('/delete/deleteAll')
+    .delete(deleteAllplayers)
 
 module.exports = router;

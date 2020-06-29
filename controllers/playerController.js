@@ -4,33 +4,37 @@ dotenv.config({ path: './config.env' });
 
 const request = require('request');
 
-const options = {
-    method: 'GET',
-    url: 'https://free-nba.p.rapidapi.com/players',
-    qs: {page: '0', per_page: '25'},
-    headers: {
-        'x-rapidapi-host': 'free-nba.p.rapidapi.com',
-        'x-rapidapi-key': process.env.API_KEY,
-        useQueryString: true
-    }
-};
-
-const playersData = request(options, async (error, response, body) => {
-    try{
-        const parsedResponse = await JSON.parse(body);
-        parsedResponse.data.forEach(player => {
-            Player.create({
-                first_name: player.first_name,
-                last_name: player.last_name,
-                position: player.position,
-                team: '',
-                image: ''
-            });
-        })
-    } catch(err){
-        console.log(err);
-    }
-})
+// let i = 1;
+// while(i < 33){
+//     const options = {
+//     method: 'GET',
+//     url: 'https://free-nba.p.rapidapi.com/players',
+//     qs: {page: `${i.toString()}`, per_page: '200'},
+//     headers: {
+//         'x-rapidapi-host': 'free-nba.p.rapidapi.com',
+//         'x-rapidapi-key': process.env.API_KEY,
+//         useQueryString: true
+//     }
+// }
+//     const playersData = request(options, async (error, response, body) => {
+//         try{
+//             const parsedResponse = await JSON.parse(body);
+//             // console.log(parsedResponse);
+//             parsedResponse.data.forEach(player => {
+//                     Player.create({
+//                     first_name: player.first_name,
+//                     last_name: player.last_name,
+//                     position: player.position,
+//                     team: '',
+//                     image: 'https://www.gannett-cdn.com/-mm-/88ad73dcd7f9cf7083fa7d0646d58a6cf78f5734/c=0-0-1023-578/local/-/media/Indianapolis/Indianapolis/2014/11/14/635515695508990009-inidc5-5klnrw8e1gmksld9g1i-original.jpeg?width=660&height=373&fit=crop&format=pjpg&auto=webp'
+//                 });
+//             });
+//         } catch(err){
+//             console.log(err);
+//         }
+//     })
+// i++
+// }
 
 exports.getAllPlayers = async (req, res) => {
     try{
@@ -48,9 +52,13 @@ exports.getAllPlayers = async (req, res) => {
         // parse it to be an object as mongodb query takes objects as arguments
         const query = JSON.parse(queryStr)
         const players = await Player.find(query);
-        
+
+        // return amount of players
+        const playerCount = players.length
+
         res.status(200).json({
             status: 'success',
+            playerCount,
             players
         });
     } catch(err){
@@ -139,6 +147,21 @@ exports.deletePlayer = async (req, res) => {
     };
 };
 
+exports.deleteAllplayers = async (req, res) => {
+    try{
+        await Player.deleteMany();
+
+        res.status(204).json({
+            status: 'success',
+            data: null
+        })
+    } catch(err){
+        res.status(404).json({
+            status: 'failed',
+            message: err
+        })
+    }
+}
 
 
 // exports.pgPlayers = async (req, res) => {
