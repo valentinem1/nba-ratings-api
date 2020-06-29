@@ -40,7 +40,7 @@ const { query } = require('express');
 
 exports.getAllPlayers = async (req, res) => {
     try{
-        // 2) ADVANCED FILTERING
+        // ADVANCED FILTERING
         // spread the query to create a new object that can be modify
         const queryObj = { ...req.query };
         // save different query types that we then iterate over to delete them from the query url.
@@ -54,9 +54,18 @@ exports.getAllPlayers = async (req, res) => {
 
         let query = Player.find(JSON.parse(queryStr));
 
-        // 5) PAGINATION
+        // SORTING
+        // if(req.query.sort){
+        //     const sortBy = req.query.sort.split(',').join(' ')
+        //     query = query.sort(sortBy);
+        // }
+        // else{
+        //     query = query.sort('-createdAt');
+        // };
+
+        // PAGINATION
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 25;
+        const limit = 25;
         const skip = (page - 1) * limit;
 
         query = query.skip(skip).limit(limit);
@@ -66,18 +75,25 @@ exports.getAllPlayers = async (req, res) => {
             if(skip >= numPlayers) throw new Error('This page does not exist');
         }
 
+        // sort the query by first_name alphabetic order
+        query = query.sort('first_name');
+
         const players = await query;
 
-        // return amount of players
-        const playersPerPage = players.length
+        // return amount of players per page
+        const playersPerPage = players.length;
+        // return total amount of players in DB
         const totalPlayers = await Player.countDocuments();
+        // return total amount of pages
+        const totalPages = Math.round(totalPlayers / limit);
 
         res.status(200).json({
             status: 'success',
-            data: {
-                totalPlayers,
-                playersPerPage,
-                page
+            meta: {
+                current_page: page,
+                players_per_page: playersPerPage,
+                total_pages: totalPages,
+                total_players: totalPlayers
             },
             players
         });
