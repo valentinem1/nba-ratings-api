@@ -33,6 +33,7 @@ const playerSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A player must have an image.']
     },
+    team: Object,
     createdAt: String
 });
 

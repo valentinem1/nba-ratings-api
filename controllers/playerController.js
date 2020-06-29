@@ -65,7 +65,7 @@ exports.getAllPlayers = async (req, res) => {
 
         // PAGINATION
         const page = parseInt(req.query.page) || 1;
-        const limit = 25;
+        const limit = 100;
         const skip = (page - 1) * limit;
 
         query = query.skip(skip).limit(limit);
@@ -76,10 +76,9 @@ exports.getAllPlayers = async (req, res) => {
         }
 
         // sort the query by first_name alphabetic order
-        query = query.sort('first_name');
+        query = query.sort('last_name');
 
         const players = await query;
-
         // return amount of players per page
         const playersPerPage = players.length;
         // return total amount of players in DB
@@ -89,7 +88,7 @@ exports.getAllPlayers = async (req, res) => {
 
         res.status(200).json({
             status: 'success',
-            meta: {
+            metadata: {
                 current_page: page,
                 players_per_page: playersPerPage,
                 total_pages: totalPages,
