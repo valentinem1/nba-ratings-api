@@ -3,7 +3,9 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
 const request = require('request');
+const { query } = require('express');
 
+// FETCH DATA FROM EXTERNAL API
 // let i = 1;
 // while(i < 33){
 //     const options = {
@@ -47,18 +49,36 @@ exports.getAllPlayers = async (req, res) => {
 
         // stringify the query to be able to the replace method on it
         let queryStr = JSON.stringify(queryObj);
+        // console.log(req.query, req.query);
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt|eq)\b/g, match => `$${match}`);
-        // Mongodb query
-        // parse it to be an object as mongodb query takes objects as arguments
-        const query = JSON.parse(queryStr)
-        const players = await Player.find(query);
+
+        let query = Player.find(JSON.parse(queryStr));
+
+        // 5) PAGINATION
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 25;
+        const skip = (page - 1) * limit;
+
+        query = query.skip(skip).limit(limit);
+
+        if(req.query.page){
+            const numPlayers = await Player.countDocuments();
+            if(skip >= numPlayers) throw new Error('This page does not exist');
+        }
+
+        const players = await query;
 
         // return amount of players
-        const playerCount = players.length
+        const playersPerPage = players.length
+        const totalPlayers = await Player.countDocuments();
 
         res.status(200).json({
             status: 'success',
-            playerCount,
+            data: {
+                totalPlayers,
+                playersPerPage,
+                page
+            },
             players
         });
     } catch(err){
