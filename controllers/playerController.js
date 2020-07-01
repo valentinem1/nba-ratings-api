@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 
 const request = require('request');
-const { query } = require('express');
+// const { query } = require('express');
 
 // FETCH DATA FROM EXTERNAL API
 // let i = 1;
