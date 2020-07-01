@@ -23,15 +23,17 @@ const { query } = require('express');
 //             const parsedResponse = await JSON.parse(body);
 //             // console.log(parsedResponse);
 //             parsedResponse.data.forEach(player => {
-//                     Player.create({
+//                 // console.log(player.team);
+//                 Player.create({
 //                     first_name: player.first_name,
 //                     last_name: player.last_name,
 //                     position: player.position,
 //                     team: '',
-//                     image: 'https://www.gannett-cdn.com/-mm-/88ad73dcd7f9cf7083fa7d0646d58a6cf78f5734/c=0-0-1023-578/local/-/media/Indianapolis/Indianapolis/2014/11/14/635515695508990009-inidc5-5klnrw8e1gmksld9g1i-original.jpeg?width=660&height=373&fit=crop&format=pjpg&auto=webp'
+//                     image: 'https://www.gannett-cdn.com/-mm-/88ad73dcd7f9cf7083fa7d0646d58a6cf78f5734/c=0-0-1023-578/local/-/media/Indianapolis/Indianapolis/2014/11/14/635515695508990009-inidc5-5klnrw8e1gmksld9g1i-original.jpeg?width=660&height=373&fit=crop&format=pjpg&auto=webp',
+//                     team: player.team
 //                 });
 //             });
-//         } catch(err){
+//         }catch(err){
 //             console.log(err);
 //         }
 //     })
