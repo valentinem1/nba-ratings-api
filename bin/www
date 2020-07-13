@@ -3,6 +3,9 @@
 /**
  * Module dependencies.
  */
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config({ path: './config.env' });
 
 var app = require('../app');
 var debug = require('debug')('nodeapi:server');
@@ -11,6 +14,17 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
+
+ // connecting MongoDB to express api
+const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
+
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+})
+.then( () => console.log("DB connection successful! ✅") );
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
