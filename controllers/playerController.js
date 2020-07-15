@@ -1,44 +1,52 @@
 const Player = require('../models/playerModel');
 const dotenv = require('dotenv');
+
 dotenv.config({ path: './config.env' });
 
-const request = require('request');
-// const { query } = require('express');
+//////// FETCH DATA FROM CSV FILE /////////
+// const fs = require('fs');
+// const neatCsv = require('neat-csv');
 
-// FETCH DATA FROM EXTERNAL API
-// let i = 1;
-// while(i < 33){
-//     const options = {
-//     method: 'GET',
-//     url: 'https://free-nba.p.rapidapi.com/players',
-//     qs: {page: `${i.toString()}`, per_page: '200'},
-//     headers: {
-//         'x-rapidapi-host': 'free-nba.p.rapidapi.com',
-//         'x-rapidapi-key': process.env.API_KEY,
-//         useQueryString: true
-//     }
-// }
-//     const playersData = request(options, async (error, response, body) => {
-//         try{
-//             const parsedResponse = await JSON.parse(body);
-//             // console.log(parsedResponse);
-//             parsedResponse.data.forEach(player => {
-//                 // console.log(player.team);
-//                 Player.create({
-//                     first_name: player.first_name,
-//                     last_name: player.last_name,
-//                     position: player.position,
-//                     team: '',
-//                     image: 'https://www.gannett-cdn.com/-mm-/88ad73dcd7f9cf7083fa7d0646d58a6cf78f5734/c=0-0-1023-578/local/-/media/Indianapolis/Indianapolis/2014/11/14/635515695508990009-inidc5-5klnrw8e1gmksld9g1i-original.jpeg?width=660&height=373&fit=crop&format=pjpg&auto=webp',
-//                     team: player.team
-//                 });
-//             });
-//         }catch(err){
-//             console.log(err);
-//         }
+// const data = fs.readFile('./nbadata.csv', async (error, data) => {
+//     if (error) throw new Error(error);
+
+//     const parsedData = await neatCsv(data);
+    // console.log(parsedData[0].Pos);
+    // parsedData.forEach(player => {
+            // Player.create({
+            //     first_name: player['﻿Player'].split(' ')[0],
+            //     last_name: player['﻿Player'].split(' ')[1],
+            //     position: player['Pos'],
+            //     age: player['Age'],
+            //     team: player['Tm'],
+            //     game: player['G'],
+            //     gameStarted: player['GS'],
+            //     minutePlayed: player['MP'],
+            //     fieldGoal: player['FG'],
+            //     fieldGoalAttempt: player['FGA'],
+            //     fieldGoalPercentage: player['FG%'],
+            //     threePoint: player['3P'],
+            //     threePointAttempt: player['3PA'],
+            //     threePointPercentage: player['3P%'],
+            //     twoPoint: player['2P'],
+            //     twoPointAttempt: player['2PA'],
+            //     twoPointPercentage: player['2P%'],
+            //     effectiveFieldGoalPercentage: player['eFG%'],
+            //     freeThrow: player['FT'],
+            //     freeThrowAttempt: player['FTA'],
+            //     freeThrowPercentage: player['FT%'],
+            //     offensiveRebouds: player['ORB'],
+            //     defensiveRebounds: player['DRB'],
+            //     totalRebounds: player['TRB'],
+            //     assists: player['AST'],
+            //     steals: player['STL'],
+            //     blocks: player['BLK'],
+            //     personalFouls: player['PF'],
+            //     turnovers: player['TOV'],
+            //     points: player['PTS']
+            // });
 //     })
-// i++
-// }
+// });
 
 exports.getAllPlayers = async (req, res) => {
     try{
@@ -55,15 +63,6 @@ exports.getAllPlayers = async (req, res) => {
         queryStr = queryStr.replace(/\b(gte|gt|lte|lt|eq)\b/g, match => `$${match}`);
 
         let query = Player.find(JSON.parse(queryStr));
-
-        // SORTING
-        // if(req.query.sort){
-        //     const sortBy = req.query.sort.split(',').join(' ')
-        //     query = query.sort(sortBy);
-        // }
-        // else{
-        //     query = query.sort('-createdAt');
-        // };
 
         // PAGINATION
         const page = parseInt(req.query.page) || 1;
