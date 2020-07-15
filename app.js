@@ -26,7 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // MIDDLEWARES
 app.use(cors({
-  origin: process.env.URL
+  // origin: process.env.URL,
+  'Access-Control-Allow-Origin': process.env.URL
 }));
 
 // middleware to send see at what time the request as been made
