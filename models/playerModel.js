@@ -1,40 +1,36 @@
 const mongoose = require('mongoose');
 
 const playerSchema = new mongoose.Schema({
-    first_name: {
-        type: String,
-        required: [true, 'A player must have a first name.'],
-        // removes white space
-        trim: true
-    },
-    last_name: {
-        type: String,
-        required: [true, 'A player must have a last name.'],
-        trim: true
-    },
-    position: {
-        type: String,
-        require: [true, 'A player must have a position.'],
-        trim: true
-    },
-    team: {
-        type: String,
-        trim: true
-    },
-    likes: {
-        type: Number,
-        default: 0
-    },
-    dislikes: {
-        type: Number,
-        default: 0
-    },
-    image: {
-        type: String,
-        required: [true, 'A player must have an image.']
-    },
-    team: Object,
-    createdAt: String
+    first_name: String,
+    last_name: String,
+    position: String,
+    age: Number,
+    team: String,
+    game: Number,
+    gameStarted: Number,
+    minutePlayed: Number,
+    fieldGoal: Number,
+    fieldGoalAttempt: Number,
+    fieldGoalPercentage: Number,
+    threePoint: Number,
+    threePointAttempt: Number,
+    threePointPercentage: Number,
+    twoPoint: Number,
+    twoPointAttempt: Number,
+    twoPointPercentage: Number,
+    effectiveFieldGoalPercentage: Number,
+    freeThrow: Number,
+    freeThrowAttempt: Number,
+    freeThrowPercentage: Number,
+    offensiveRebouds: Number,
+    defensiveRebounds: Number,
+    totalRebounds: Number,
+    assists: Number,
+    steals: Number,
+    blocks: Number,
+    personalFouls: Number,
+    turnovers: Number,
+    points: Number
 });
 
 const Player = mongoose.model('Player', playerSchema);
