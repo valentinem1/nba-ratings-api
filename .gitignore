@@ -105,3 +105,5 @@ dist
 
 config.env
 .DS_Store
+controllers/nba-stats-excel/
+controllers/nba-stats-html/

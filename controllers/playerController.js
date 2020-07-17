@@ -7,6 +7,29 @@ const request = require("request");
 const fs = require('fs');
 const neatCsv = require('neat-csv');
 
+//////// SCRAPE HTML FROM WEBSITE AND SAVE IT INTO EXCEL FILE //////////
+// for(let year = 2004; year <= 2020; year++){
+//     const nbaUrl = `https://www.basketball-reference.com/leagues/NBA_${year}_totals.html`;
+    
+//     request(nbaUrl, async (error, response, body) => {
+//     	if (error) throw new Error(error);
+    
+//         if(response.statusCode === 200){
+//             let statsTable = body.slice(body.indexOf('<table class="sortable stats_table" id="totals_stats" data-cols-to-freeze="2" data-non-qual="1" data-qual-text="" data-qual-label=" When table is sorted, hide non-qualifiers for rate stats">'), body.indexOf('</table>'));
+            
+//             statsTable+='</table>'
+    
+//          fs.writeFile(`${__dirname}/nba-stats-${year}.xls`, statsTable, (error) => {
+//                 if(error) throw new Error(error);
+    
+//                 console.log('file saved! 🤩');
+//             });
+//         }
+//     });
+// }
+
+
+
 /////// FETCH TEAMS FROM EXTERNAL API ////////
 // const options = {
 //     method: 'GET',
@@ -52,10 +75,10 @@ const neatCsv = require('neat-csv');
 // });
 
 //////// FETCH DATA FROM CSV FILE /////////
-// const data = fs.readFile(`${__dirname}/nbadata.csv`, async (error, data) => {
+// const data = fs.readFile(`${__dirname}/nba-stats-2004`, async (error, data) => {
 //     if (error) throw new Error(error);
 
-//     const parsedData = await neatCsv(data);
+    // const parsedData = await neatCsv(data);
 //     parsedData.forEach(player => {
 //             Player.create({
 //                 first_name: player['﻿Player'].split(' ')[0],
