@@ -22,7 +22,7 @@ const playerSchema = new mongoose.Schema({
     freeThrow: Number,
     freeThrowAttempt: Number,
     freeThrowPercentage: Number,
-    offensiveRebouds: Number,
+    offensiveRebounds: Number,
     defensiveRebounds: Number,
     totalRebounds: Number,
     assists: Number,

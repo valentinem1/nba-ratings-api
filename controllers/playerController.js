@@ -31,17 +31,17 @@ const neatCsv = require('neat-csv');
 //             try{
 //                 teamData.forEach(async team => {
 //                     if(player.team === team.abbreviation){
-//                         // const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
+//                         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
 //                         // playerData.update({ team: team });
 //                         // const updated = await Player.updateOne({ _id: player._id }, { team: team });
 //                     } else if(player.team === "BRK" && team.abbreviation === "BKN"){
-//                         // const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
+//                         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
 //                     } else if(player.team === "CHO" && team.abbreviation === "CHA"){
-//                         // const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
+//                         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
 //                     } else if(player.team === "PHO" && team.abbreviation === "PHX"){
-//                         // const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
+//                         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team });
 //                     } else if(player.team === "TOT"){
-//                         // const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: "All teams combined" });
+//                         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: "All teams combined" });
 //                     }
 //                 })
 //             }catch(err){
@@ -79,7 +79,7 @@ const neatCsv = require('neat-csv');
 //                 freeThrow: player['FT'],
 //                 freeThrowAttempt: player['FTA'],
 //                 freeThrowPercentage: player['FT%'],
-//                 offensiveRebouds: player['ORB'],
+//                 offensiveRebounds: player['ORB'],
 //                 defensiveRebounds: player['DRB'],
 //                 totalRebounds: player['TRB'],
 //                 assists: player['AST'],
