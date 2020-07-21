@@ -7,6 +7,14 @@ const request = require("request");
 const fs = require('fs');
 const neatCsv = require('neat-csv');
 
+const XLSX = require('xlsx');
+
+const workbook = XLSX.readFile(`${__dirname}/nba-stats-excel/nba-stats-2004.xlsx`);
+const sheet_name_list = workbook.SheetNames;
+XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]).forEach(player => {
+    console.log(player['Player'] === 'Player');
+})
+
 //////// SCRAPE HTML FROM WEBSITE AND SAVE IT INTO EXCEL FILE //////////
 // for(let year = 2004; year <= 2020; year++){
 //     const nbaUrl = `https://www.basketball-reference.com/leagues/NBA_${year}_totals.html`;
@@ -19,7 +27,7 @@ const neatCsv = require('neat-csv');
             
 //             statsTable+='</table>'
     
-//          fs.writeFile(`${__dirname}/nba-stats-${year}.xls`, statsTable, (error) => {
+//          fs.writeFile(`${__dirname}/nba-stats-excel/nba-stats-${year}.xlsx`, statsTable, (error) => {
 //                 if(error) throw new Error(error);
     
 //                 console.log('file saved! 🤩');
