@@ -25,23 +25,25 @@ const fetchTeams = () => {
             const players = await Player.find();
     
             players.forEach(player => {
-                try{
-                    // teamData.forEach(async team => {
-                    //     if(player.team === team.abbreviation){
-                    //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
-                    //     } else if(player.team === "BRK" && team.abbreviation === "BKN"){
-                    //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
-                    //     } else if(player.team === "CHO" && team.abbreviation === "CHA"){
-                    //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
-                    //     } else if(player.team === "PHO" && team.abbreviation === "PHX"){
-                    //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
-                    //     } else if(player.team === "TOT"){
-                    //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: "All teams combined" } );
-                    //     }
-                    // })
-                }catch(err){
-                    console.log(err);
-                }
+                if(player.year >= 2020){
+                    try{
+                        // teamData.forEach(async team => {
+                        //     if(player.team === team.abbreviation){
+                        //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
+                        //     } else if(player.team === "BRK" && team.abbreviation === "BKN"){
+                        //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
+                        //     } else if(player.team === "CHO" && team.abbreviation === "CHA"){
+                        //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
+                        //     } else if(player.team === "PHO" && team.abbreviation === "PHX"){
+                        //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: team } );
+                        //     } else if(player.team === "TOT"){
+                        //         const playerData = await Player.findByIdAndUpdate({ _id: player._id }, { team: "All teams combined" } );
+                        //     }
+                        // })
+                    }catch(err){
+                        console.log(err);
+                    }
+                };
             })
         }
     });
