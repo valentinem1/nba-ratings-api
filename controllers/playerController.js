@@ -10,10 +10,14 @@ exports.getAllPlayers = async (req, res) => {
         // ADVANCED FILTERING
         // spread the query to create a new object that can be modify
         const queryObj = { ...req.query };
+
         // save different query types that we then iterate over to delete them from the query url.
+        // delete the query types so we don't pass them in the query to the database
+        // with this setup having pagination our queryObj will return {} and not { page: '2 } 
+        // as the DB doesn't know about pages
         const excludedFields = ['page', 'sort', 'limit', 'field'];
         excludedFields.forEach(el => delete queryObj[el]);
-
+        
         // stringify the query to be able to the replace method on it
         let queryStr = JSON.stringify(queryObj);
 
@@ -45,7 +49,7 @@ exports.getAllPlayers = async (req, res) => {
 
         const players = await query;
         // return amount of players per page
-        const playersPerPage = players.length;
+        // const playersPerPage = players.length;
         // round up and return the total amount of pages
         const totalPages = Math.ceil(totalPlayers / limit);
 
@@ -54,7 +58,7 @@ exports.getAllPlayers = async (req, res) => {
             status: 'success',
             metadata: {
                 current_page: page,
-                players_per_page: playersPerPage,
+                players_per_page: limit,
                 total_pages: totalPages,
                 total_players: totalPlayers
             },
