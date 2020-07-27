@@ -36,7 +36,11 @@ exports.getAllPlayers = async (req, res) => {
         query = query.skip(skip).limit(limit);
 
         // return total amount of players in DB
-        const totalPlayers = await Player.countDocuments();
+        // pass the queryStr as argument to count the number of players depending on the request
+        // ex: if the request looks like http://localhost:3000/players?[year][eq]=2010
+        // passing in the queryStr will pass {"year":{"$eq":"2010"}} as argument to the DB to count players for 2010
+        // but if queryStr doesn't have any specification it will count all the players in the DB.
+        const totalPlayers = await Player.countDocuments(JSON.parse(queryStr));
         // check if the skip number is bigger than the number of documents in DB
         // if bigger it means the pagination is bigger than the num of docs so throw an error
         if(req.query.page){
@@ -71,6 +75,11 @@ exports.getAllPlayers = async (req, res) => {
         });
     };
 };
+
+// exports.playersPerSeasons = async (req, res) => {
+//     const queryObj = { ...req.query }
+
+// }
 
 exports.getOnePlayer = async (req, res) => {
     try{
