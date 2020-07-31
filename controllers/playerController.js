@@ -5,6 +5,7 @@ const fetchTeams = require('./fetchTeamsApiCall');
 // seedDB();
 // fetchTeams();
 
+
 exports.getAllPlayers = async (req, res) => {
     try{
         // ADVANCED FILTERING
